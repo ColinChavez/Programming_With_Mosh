@@ -1,0 +1,7 @@
+Mosh Javascript Notes
+
+1. What is Javascript
+2. What can you do with it?
+3. Where does Javascript code run?
+4. Javascript vs. ECMAScript
+
