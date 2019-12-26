@@ -13,3 +13,9 @@ program. Node is a C++ program that includes Google's V8 Javascript Engine.
 EcmaScript is a specification
 JavaScript is programming language that conforms to this specificaton.
 
+5. Separation of Concerns - Separate HTML, which is all about content, 
+from javascript, which is all about behavior. How should your web page behave?
+We use javascript to implement behavior.
+
+6. JavaScript in Node - runtime environment for executing javascript code.
+
