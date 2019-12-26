@@ -1,7 +1,15 @@
 Mosh Javascript Notes
 
-1. What is Javascript
-2. What can you do with it?
+1. What is Javascript - 
+2. What can you do with it?  
+JS can be used both on the front and the back end to develop a variety of applications.
 3. Where does Javascript code run?
+Javascript was originally only designed to run in browsers via the Javascript language.
+Chrome JS engine: V8
+FireFox JS Engine: SpiderMonkey
+In 2009 Ryan Doll took the open source Javascript engine in Chrome and embedded it inside a C++ 
+program. Node is a C++ program that includes Google's V8 Javascript Engine.
 4. Javascript vs. ECMAScript
+EcmaScript is a specification
+JavaScript is programming language that conforms to this specificaton.
 
