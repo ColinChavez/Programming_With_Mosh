@@ -19,3 +19,4 @@ We use javascript to implement behavior.
 
 6. JavaScript in Node - runtime environment for executing javascript code.
 
+Variables- stores data temporarily in memory.
