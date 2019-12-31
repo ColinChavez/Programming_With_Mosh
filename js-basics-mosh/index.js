@@ -116,3 +116,83 @@ console.log(number);
 console.log(squre(2));
 //console.log() is calling the 'log' function. An argument such as a string or an expression can be passed in as a value
 
+//OPERATORS
+/* Operators and variables are used to create expressions that are used
+to implement logic and algorithms*/
+
+// Arithmatic
+let x = 10;
+let y = 3;
+// % is remainder of devision
+// ** is an exponent 
+/*
+console.log(x+y);
+console.log(x-y);
+console.log(x*y);
+console.log(x/y);
+console.log(x%y);
+console.log(x**y);
+
+Increment (++) depending on where we put the plus signs this
+operator will behave differently.
+console.log(++x); if you put the ++ before x it will be incremented
+first and the the output will be printed. Output: 11
+in contrast, if you put the operator after x, the value will be
+printed and then incremented afterward. Output: 10 */
+
+//Decrement (--) behaves the same way as (++)
+
+// Assignment
+let x = 10; 
+x++; //this code
+x = x + 1;// is equivalent to this code.
+
+x = x + 5;
+x += 5; //Addition assignment operator 
+
+x = x * 3;
+x *= 3; 
+
+// Comparison
+let x = 1;
+console.log(x > 0);
+// the result of a comparison operator is a boolean value true or false
+console.log(x >= 0);
+console.log(x < 0);
+console.log(x <= 0);
+//These four operators are called relational operators.
+
+//Equality
+console.log(x === 1); //equal to 
+console.log(x !== 1); // not equal to
+
+// Strict Equality(same Type + same Value)
+console.log(1 === 1);
+/* Strict Equality operator ensures that both of these values
+have the same type and value 
+The values above are both numbers and are both 1 so the output 
+would be true*/
+console.log('1' === 1);
+//This comparison would evaluate to false because they are different types.
+
+// Loose Equality (converts types to match and evaluates based on values)
+console.log(1 == 1); //evaluates to true
+console.log('1' == 1); //evaluates to true
+// Converts to true because the value on the right will be converted
+// to match the value on the left
+
+// Ternary (Conditional Operator)
+// If a customer has more than 100 points
+// They are a 'gold' customer, otherwise
+// they are a 'silver' customer.
+let points = 110;
+let type = points > 100 ? 'gold' : 'silver';
+//result of this expression is true or fals, boolean
+// if condition evalutes to true we use the first value
+// if false we use the second value.
+
+
+// Logical
+
+
+// Bitwise
