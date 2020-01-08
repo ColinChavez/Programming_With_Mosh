@@ -192,7 +192,67 @@ let type = points > 100 ? 'gold' : 'silver';
 // if false we use the second value.
 
 
-// Logical
+// Logical AND (&&)
+// Returns True if both operands are TRUE
+// If either operand is false then Returns FALSE
+
+let highIncome = true;
+let goodCreditScore = true;
+let eligibleForLoan = highIncome && goodCreditScore;
+
+console.log(eligibleForLoan);
+//OUTPUT: TRUE 
+
+//Logical OR (||)
+//Returns TRUE if one of the operands is true.
+
+let highIncome = true;
+let goodCreditScore = true;
+let eligibleForLoan = highIncome || goodCreditScore;
+
+console.log(eligibleForLoan);
+//OUTPUT: TRUE 
+
+// NOT (!)
+let applicationRefused = !eligibleForLoan;
+// NOT operator converts value to opposite boolean value.
 
 
 // Bitwise
+
+//LOGICAL OPERATORS WITH NON-BOOLEANS
+
+/* 
+false || true
+output: true
+false || 'Colin'
+output: "Colin"
+false || 1
+output: 1
+false || 1 || 2
+output: 1 // OR operator outputs the first value in the expression
+that is true or truthy.
+*/
+
+//SHORT-CIRCUITING
+// As soon as we find an operand that is truthy the evaluation stops
+
+//Falsy (false)
+//undefined
+//null
+//0
+//false
+//''
+//NaN (not a number)
+
+//Anything that is not Falsy is Truthy
+
+let userColor = 'red';
+let defaultColor = 'blue';
+let currentColor = userColor || defaultColor;
+
+//The power of using the logical OR operator with non booleans
+//allows you to set a default value.
+
+//BITWISE
+
