@@ -256,3 +256,61 @@ let currentColor = userColor || defaultColor;
 
 //BITWISE
 
+/* We humans use the decimal system to represent numbers but
+in computers these numbers are stored in the binary format which
+is a combination of 0's and 1's. */
+
+//1 = 00000001
+/* The number 1 is represented as 7 0's and a 1 in the decimal system
+so we have 8 digits. Each digit is called a 'Bit', Eight 'Bits' is
+one 'Byte' of information */
+//lookup mathemtics that converts decimals to binary system.
+//2 = 00000010
+//Result = 00000011, if you convert the result of this binary number
+//to a decimal it would be 3.
+
+console.log(1 | 2); //Bitwise OR
+//1 = 00000001
+//2 = 00000010
+//Result = 00000011 = 3
+/*The result 3 because the bitwise OR operator taskes the first 6
+bits and adds it to the result, it then adds the 1 value of each
+decimal to the result. For Ex. 00000011*/
+
+console.log(1 & 2); //Bitwise AND
+//1 = 00000001
+//2 = 00000010
+//Result = 00000000 = 0
+/* If both numbers compared at each position is 1 then 1 will be
+returned, otherwise 0 will be returned.*/
+
+//Real World Example
+/* Imagine you want to implement an access control system, so the 
+user can have read, write, and execute permissions. We can use 1
+byte of information '8 bits" to determine the kind of permission
+a user can have*/
+
+//Read, Write, Execute
+// 00000100 = read only
+// 00000110 = read and write permission
+// 00000111 = all permissions
+
+const readPermission = 4;
+const writePermission = 2;
+const executePermission = 1;
+let myPermission = 0;
+myPermmission = myPermission | readPermission | writePermission
+// use the bitwise OR (|) operator to add permissions, indicated above
+let message = (myPermission & readPermission) ? 'yes': 'no';
+// Use ternary operator and bitwise AND operator to verify 
+//that you have access to permisson
+
+//TAKEAWAY
+//Bitwise OR operator we can add permissions
+//Bitwise AND operator we can check to see if we have a given 
+//permission
+
+// OPERATOR PRECEDENCE
+let x = 2 + 3 * 4;
+//PEMDAS
+let x = (2+3) * 4;
