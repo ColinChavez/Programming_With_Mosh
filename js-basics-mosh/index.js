@@ -314,3 +314,81 @@ let message = (myPermission & readPermission) ? 'yes': 'no';
 let x = 2 + 3 * 4;
 //PEMDAS
 let x = (2+3) * 4;
+
+
+// SWAPPING VARIABLES
+
+let a = 'red'
+let b = 'blue'
+
+let c = a; 
+a = b;
+b = c;
+//this effecivley swaps the value of a and b.
+
+//***CONDITIONAL STATEMENTS***//
+/*
+if (condition) {
+    statement
+}
+else if (anotherCondition) {
+    statement
+}
+else if (yetAnotherCondition)
+    statement
+else
+    statement
+*/
+//Hour
+//If hour is between 6am and 12pm: Good Morning!
+//If it is between 12pm and 6pm: Good Afternoon!
+//Otherwise: Good evening!
+//Use Military Time
+let hour = 10;
+
+if (hour >= 6 && hour < 12) 
+    console.log('Good Morning!');
+else if (hour >= 12 && hour < 18) 
+    console.log('Good Afternoon!');
+else
+    console.log('Good Evening!');
+
+//SWITCH AND CASE//
+
+let role; 
+
+switch(role){
+    case 'guest':
+        console.log('Guest User');
+        break;
+
+    case 'moderator':
+        console.log('Moderator User');
+        break;
+
+    default: 
+        console.log('Unknown User');
+}
+//OUTPUT: Guest User
+/* The outpus was 'guest user' because we have not initialized
+the 'role' variable, therefore its value is undefined.
+*/
+
+/*TAKEAWAY: SWITCH and CASE can be used to compare the value of
+a variable against a bunch of other values. If I were comparing
+TRUE or FALSE it would be more logical to use IF ELSE*/
+
+if (rolse === 'guest' && hour > 12) console.log('Guest');
+else if (role === 'moderator') console.log('Moderator');
+else console.log('Unknown User');
+
+//Mosh personally beleives switch and case are outdated.
+
+//***LOOPS***//
+
+//FOR 
+for (let i = 0; i < 5; i++) //i is short for index and is the common loop variable
+    console.log('Hello World');
+
+// for (initialExpression; condition; incrementExpression)
+
