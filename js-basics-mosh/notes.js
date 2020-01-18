@@ -378,7 +378,7 @@ the 'role' variable, therefore its value is undefined.
 a variable against a bunch of other values. If I were comparing
 TRUE or FALSE it would be more logical to use IF ELSE*/
 
-if (rolse === 'guest' && hour > 12) console.log('Guest');
+if (role === 'guest' && hour > 12) console.log('Guest');
 else if (role === 'moderator') console.log('Moderator');
 else console.log('Unknown User');
 
@@ -392,3 +392,149 @@ for (let i = 0; i < 5; i++) //i is short for index and is the common loop variab
 
 // for (initialExpression; condition; incrementExpression)
 
+for (let i = 1; i <= 5; i++) {
+    if (i % 2 !== 0) console.log(i); // if the remainder of the division of i by 2 is not equal to 0
+}// that means that i is an odd number
+
+//output: 1,3,5
+
+//WHILE
+// in for loops, the loop variable is part of the loop itself
+// in While loops, the loop variable is outside the loop. We have to declare it externally.
+
+let i = 0;
+while (i <= 5) {
+    if (i % 2 !== 0) console.log(i);
+    i++;
+}
+// initialize variable
+//while(condition){statement}
+
+//DO WHILE
+let i = 0;
+do{
+    if (i % 2 !== 0) console.log(i);
+    i++;
+} while (i <= 5);
+
+//Difference between while and do while - do while is executed at least once even if condition is FALSE
+
+//INFINITE LOOPS
+let i = 0;
+while (i < 5) {
+console.log(i);
+//i++; runs forever because condition is not changed
+}
+
+while (true){
+}
+
+let x = 0;
+do{
+}while (x < 5);
+
+for (i = 0; i < 10; );
+
+//FORIN LOOP - used to iterate over the properties of an object
+//We use these loops to iterate over the properties of an object or elements in an array.
+
+const person = {
+    name: 'Mosh',
+    age: 30
+}; 
+
+for (let key in person)
+    console.log(key, person[key]);
+// the key variable in the loop will hold one of the properties in this person object
+
+//used to display the property of each key, 
+// dot notation
+person.name
+
+//bracket notation
+person['name']
+// we use the bracket notation when we don't know ahead of time, at the time of writing code,
+//what property we're going to access, perhaps the name of the target property is calculated at runtime
+
+//when we iterate over the properties of the person object, in each iteration the value of key is going
+// to be different
+
+//That's why in this example we use bracket notations person[key] and pass "key" as the name of the 
+//target property
+
+const colors = ['red', 'green', 'blue']; //Define an array called colors
+
+for (let index in colors) 
+    console.log(index, colors[index]);
+//named the loop variable index because in each iteration, this index variable will be set to the index
+//of one of the elements in this array [0,1,2];
+// if you want to get the element of the given index we use the square bracket notation
+
+//ES6 new loop
+//FOR OF - used to iterate over the elements or items in an array.
+for (let color of colors) 
+    console.log(color);
+//with this new for loop we do not have to deal with index, we don't have to access this element
+// at the given index. So in each iteration 'color' will hold one fo the items in this array
+
+//BREAK AND CONTINUE
+let i = 0;
+while (i <= 10) {
+    //if (i === 5) break; //with the 'break' keyword you jump out of a loop
+    if (i % 2 ===0) { //if i is an even number then it will be incremented and printed to the console
+        i++;          //therefore the output will be odd numbers
+        continue; //with the 'continue' keyword you jump to the next iteration
+    }
+    console.log(i);
+    i++;
+}
+
+//EXCERCISES 
+//1. write a function that takes two numbers and returns the maximum of two.
+
+let number = max(1,2);
+console.log(number);
+
+function max(a,b){
+    return (a > b) ? a : b; //ternary operator is cleaner than if else.
+    //if (a >b) return a;
+    //return b
+}
+
+//2. Return true if the image is landscape (width > height)
+console.log(isLandscape(800,600))
+
+function isLandscape(width, height) {
+return (width > height)
+}
+
+//return (width > height) ? true : false; 
+// this solution can be shortened because the condition will evaluate to true automatically
+
+//3. FizzBuzz
+
+//Divisible by 3 == Fizz
+//Divisible by 5 == Buzz
+// Divisible by both 3 and 5 == FizzBuzz
+// Not divisible by 3 or 5 == input
+//Not a number == 'Not a Number'
+
+const output = fizzBuzz(false);
+console.log (output);
+
+function fizzBuzz(input) {
+    if (typeof input !== 'number')
+    return NaN;
+    
+    if ((input % 3 === 0) && (input % 5 === 0))
+    return 'FizzBuzz';
+    
+    if (input % 3 === 0)
+    return 'Fizz';
+
+    if (input % 5 === 0)
+    return 'Buzz';
+
+
+    return input;
+}
