@@ -445,7 +445,8 @@ const person = {
 
 for (let key in person)
     console.log(key, person[key]);
-// the key variable in the loop will hold one of the properties in this person object
+// the key variable in the loop will hold one of the p
+roperties in this person object
 
 //used to display the property of each key, 
 // dot notation
@@ -537,4 +538,28 @@ function fizzBuzz(input) {
 
 
     return input;
+}
+
+// 4. Checkspeed
+// Speed Limit = 40
+// every 5  over 70 they get a point
+//Math.floor(1.3)
+// 12 points suspended
+
+checkSpeed(109);
+
+function checkSpeed(speed) {
+    const speedLimit = 70;
+    const kmPerPoint = 5;
+
+    if (speed < speedLimit + kmPerPoint) {
+        console.log('Ok');
+        return;
+    }
+    
+    const points = Math.floor((speed - speedLimit) / kmPerPoint);
+    if (points >= 12)
+     console.log('License Suspended');
+    else
+     console.log('Points', points); 
 }
