@@ -445,8 +445,7 @@ const person = {
 
 for (let key in person)
     console.log(key, person[key]);
-// the key variable in the loop will hold one of the p
-roperties in this person object
+// the key variable in the loop will hold one of the properties in this person object
 
 //used to display the property of each key, 
 // dot notation
@@ -482,7 +481,7 @@ for (let color of colors)
 let i = 0;
 while (i <= 10) {
     //if (i === 5) break; //with the 'break' keyword you jump out of a loop
-    if (i % 2 ===0) { //if i is an even number then it will be incremented and printed to the console
+    if (i % 2 === 0) { //if i is an even number then it will be incremented and printed to the console
         i++;          //therefore the output will be odd numbers
         continue; //with the 'continue' keyword you jump to the next iteration
     }
@@ -563,3 +562,176 @@ function checkSpeed(speed) {
     else
      console.log('Points', points); 
 }
+
+//Excercises
+
+// 5. Displays numbers as odd or even based on the limit that you set.
+
+//My Solutions
+showNumbers(10);
+
+function showNumbers(limit) {
+    let i = 0;
+    while (i <= limit) {
+
+        if (i % 2 !== 0) {
+            console.log(i, "Odd");
+        }
+        else 
+            console.log(i, "Even")
+            i++;
+    }
+}
+
+//Mosh's Solution
+showNumbers(10);
+
+function showNumbers(limit) {
+    for (let i = 0; i <= limit; i++) {
+        if (i % 2 === 0) console.log(i, 'EVEN');
+        else console.log(i,"ODD");
+
+        //Mosh recommends using the ternary operator implementation below for cleaner code 
+        //const message = (i % 2 === 0) ? 'EVEN' : 'ODD'
+        //console.log(i, message);
+    }
+}
+
+// 6. Count Truthy
+// Takes an array and counts the number of Truthy elements in an array.
+// Javascript engine interprets a non Boolean value as Truthy or Falsey
+
+/* Falsey Values
+undefined
+null
+''
+false
+0
+NaN
+*/
+
+
+const array = [0, null, undefined, '', 2, 3];
+
+console.log(countTruthy(array));
+
+function countTruthy(array) {
+    let count = 0;
+    for (let value of array) // Use for of loop to iterate array
+        if (value) //A value is automatically interpreted as true or false so 
+        count++;   // a comparison is not needed.
+    return count;
+}
+
+//7. Create a function that displays all the properties of an object that are
+// of type 'string'
+
+//Object Literal Syntax
+const movie = {
+    title: 'a',
+    releaseYear: 2018,
+    rating: 4.5,
+    director: 'b'
+};
+
+showProperties(movie);
+
+function showProperties(obj) {
+    for (let key in obj) // in each iteration key will hold the name of one of the properties
+        if (typeof obj[key] === 'string') // get the value of each property and check the type of that value
+            console.log(key, obj[key]); // if the type is a string then we display the property and its value
+}                           // we use bracket notation to get the value of each property
+
+//8. Sum of Multiples of 3 and 5
+// return all the multiples of 3 and 5 up to the set limit 
+
+console.log(sum(10));
+
+function sum(limit) {
+    let sum = 0; //initialization
+
+    for (let i = 0; i <= limit; i++) // logic
+        if (i % 3 === 0 || i % 5 === 0)
+            sum += i; //if condition is true value is added and then assigned to sum.
+
+    return sum; //return statement
+}
+
+//9. Calculate the Grade of a student
+// Break into two smaller functions 
+//Single Responsibility Principle - each function only handles 1 task.
+
+const marks = [80, 80, 90];
+
+//Calculate Average
+// 0-59: F
+//60-69: D
+//70-79: C
+//80 - 89: B
+//90 - 100: A
+
+console.log(calculateGrade(marks));
+
+function calculateGrade(marks) {
+    const average = calculateAverage(marks);
+    if (average < 60) return 'F';
+    if (average < 70) return 'D';
+    if (average < 80) return 'C';
+    if (average < 90) return 'B';
+    return 'A';
+}
+
+function calculateAverage(array) {
+    let sum = 0;
+    for (let value of array)
+        sum += value;
+    return sum / array.length;
+}
+
+//NESTED LOOP 
+
+//10. Show Stars
+// Nested Loop
+
+showStars(5);
+
+function showStars(rows) {
+    for (let row = 1; row <= rows; row++){
+        let pattern = '';
+        for (let i = 0; i < row; i++) //For Ex. If we are on row 5 this nested loop will execute 5 times
+            pattern += '*'; // Appends 1 star to our empty string each time 
+        console.log(pattern);
+    }
+}
+
+//10. show Prime numbers up to the given limit.
+
+// Prime (Number whose factors are only 1 and itself)
+// Composite
+
+//Factors of 12
+// 12 = 1,2,3,4,6,12
+// 12 can be divided evenly by its factors
+
+// 11 == 1, 11
+
+showPrimes(20);
+
+function showPrimes(limit) {
+    for(let number = 2; number <= limit; number++) //For loop starts at two because the first prime number is 2
+        if (isPrime(number)) console.log(number);
+    
+}
+
+function isPrime(number) {
+    for (let factor = 2; factor <= number; factor ++) 
+        if (number % factor === 0) //if the number can be divided by the factor then it is not a prime number
+            return false;
+
+    return true;
+                
+}
+
+// Having two functions is cleaner than a Nested Loop
+//When you have a Nested Loop, that's probably an indication that you can extract
+//the logic from the innder loop and put it and put it in a different function.
