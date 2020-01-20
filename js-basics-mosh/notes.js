@@ -735,3 +735,33 @@ function isPrime(number) {
 // Having two functions is cleaner than a Nested Loop
 //When you have a Nested Loop, that's probably an indication that you can extract
 //the logic from the innder loop and put it and put it in a different function.
+
+// ****** Objects ******//
+
+// Object-Oriented Programming (OOP) - Style of programming where we see a program
+//as a collection of objects that talk to each other to perform some functionality.
+// The purpose of an object is to group related variables
+// Objects are created using Object Literal Notations {} "Curly Brackets"
+// We add key:value pairs inside the object called "Properties"
+// Values can be any variable type including other objects, arrays, and functions
+// We have access to all of our objects functions and Properties when we 
+//call it in other areas of the program.
+// We call an object using "Dot Notations" Ex. circle.draw();
+
+//Method - A function that is part of an Object
+
+circle.draw(); //Draw Method
+
+// FACTORY FUNCTIONS
+function createCircle(radius) {
+    return {
+        radius, //if our key and value are the same we can remove the value
+        draw(){
+            console.log('draw');
+        }
+    }; 
+}
+
+const circle1 = createCircle(1);
+console.log(circle1);
+
