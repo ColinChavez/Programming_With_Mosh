@@ -844,7 +844,7 @@ delete circle.draw;
 
 console.log(circle);
 
-
+/**************************** */
 // CONSTRUCTOR PROPERTY
 //Every Object in Javascript has a property called constructor. Constructor references
 //the code that was used to construct or create that object. 
@@ -898,6 +898,7 @@ new Number(); // 1, 2, 3, ...
 //Takeaway: Every Object has a constructor property and that references the function
 //that was used to create that object.
 
+/************************************ */
 // FUNCTIONS ARE OBJECTS
 
 //Dot notations brings up a menu in vscode to show all the 'members' of an object.
@@ -951,6 +952,7 @@ Circle.apply({}, 1);
 
 //Takaway: In Javascript Functions are Objects
 
+/********************************************************************* */
 //Value vs Reference Types
 
 /* Value Types (Also Called Primitives)
@@ -1035,6 +1037,7 @@ console.log(obj);
 //TAKEAWAY: In javascript we have value types also called primitives as well as
 //reference types also called Objects.
 
+/****************************************************************************/
 //ENUMERATING PROPERTIES OF AN OBJECT
 
 const circle = {
@@ -1087,6 +1090,7 @@ if ('color' in circle) console.log('yes');
 //We can also use the for of loop with Object.keys and Object.entries
 //To see if a given method or property exist we use the 'in' operator.
 
+/****************************** */
 //CLONING AN OBJECT
 
 const circle = {
@@ -1232,3 +1236,147 @@ Thank you for joining my mailing list.
 
 Regards,
 Colin`;
+
+// Workspace to test code in browser
+
+// DATE OBJECT - Built In object
+
+const now = new Date();
+const date1 = new Date('May 11 2018 09:00');
+const date2 = new Date(2018, 4, 11, 9, 0); //Months represented 0 -11
+
+now.setFullYear(2017);
+//now.toDateString() Output: "Thu Feb 02 2017"
+//now.ToTimeString() Output: "14:02:19 GMT-0600 (Central Standard Time)"
+//nowtoISOSTRING() Standard ISO format commonly used to transfer date between client and server
+//Output: "2017-02-02T20:02:19.084Z"
+
+//Excercise 1- Address Object
+
+//My Answer
+const address = {
+    street: '2355',
+    city: 'Grand Prairie',
+    zipCode: '75050'
+};
+
+function showAddress(obj) {
+    for (let keys of Object.entries(address))
+    console.log(keys);
+}
+
+showAddress();
+
+//Mosh Answer
+const address = {
+    street: 'a',
+    city: 'b',
+    zipCode: 'c'
+};
+
+function showAddress(address) {
+    for (let key in address)
+    console.log(key, address[key]);
+}
+
+showAddress(address);
+
+//Excercise 2 - FACTORY AND A CONSTRUCTOR FUNCTIONS
+
+//Factory Function - return a new object
+function createAddress(street, city, zipcode) {
+    return {
+        street, //If Key and value are the same we can drop the value
+        city,
+        zipcode,
+    };
+}
+let address = createAddress('a', 'b', 'c');
+console.log(address);
+
+//Constructor Function 
+function Address(street, city, zipCode) {
+    this.street = street;
+    this.city = city;
+    this.zipCode = zipCode;
+}
+
+let address = new Address('a', 'b', 'c');
+console.log(address);
+
+//Excercise 3 - Object Equlity
+let address1 = new Address('a', 'b', 'c');
+let address2 = new Address('a', 'b', 'c');
+let address3 = address1;
+
+function Address(street, city, zipCode) {
+    this.street = street;
+    this.city = city;
+    this.zipCode = zipCode;
+}
+
+function areEqual(address1, address2) {
+    return address1.street === address2.street &&
+    address1.city === address2.city &&
+    address1.zipCode === address2.zipCode;
+}
+
+function areSame(address1, address2) {
+    return address1 === address2; //checks to see if both variables are referencing the same object
+}
+
+
+console.log(areEqual(address1, address2)); //Output True - individual properties are equal
+console.log(areSame(address1, address2)); //Output False - these are different objects
+console.log(areSame(address1, address3)); //Output True - because these variables are pointing to the same object in memory
+
+//Excercise 4-  Blog Post Object
+
+const blogPost = {
+    title: 'javascript',
+    body: 'paragraph',
+    author: 'Juniper',
+    views: 0,
+    comments: [
+        {author: 'Mike Hunt', body: 'Did not read this'},
+        {author: 'York Hunt', body:'I also did not read this'}
+    ],
+    islive: true
+}
+
+console.log(blogPost);
+
+//Excercise 5- Constructor Functions
+
+let post = new Post ('a', 'b', 'c');
+
+console.log(post);
+
+function Post(title, body, author,) { //aim to have functions with few parameters
+    this.title = title;
+    this.body = body;
+    this.author = author;
+    this.views = 0
+    this.comments = [];
+    this.isLive = false;
+}
+
+// Excercise 6 - Price Range 
+//Look at the Price Range Buttons on Yelp
+
+//this object is an array of three objects
+//Minumum and Maximum Values are important for Filtering
+//For Ex. if you are building an application like yelp, somwhere you need to store a list of restaurants and 
+//then compare the properties of those restaurant objects.
+
+let priceRanges = [
+    { label: '$', tooltip: 'Inexpensive', minPerPerson: 0, maxPerPerson: 10},
+    { label: '$$', tooltip: 'Moderate', minPerPerson: 11, maxPerPerson: 20},
+    { label: '$$$', tooltip: 'Inexpensive', minPerPerson: 21, maxPerPerson: 50},
+];
+
+let restaurants = [
+    {averagePerPerson: 5}
+]
+
+console.log(priceRanges);
