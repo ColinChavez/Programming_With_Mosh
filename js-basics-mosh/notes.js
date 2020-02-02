@@ -734,7 +734,7 @@ function isPrime(number) {
 
 // Having two functions is cleaner than a Nested Loop
 //When you have a Nested Loop, that's probably an indication that you can extract
-//the logic from the innder loop and put it and put it in a different function.
+//the logic from the inner loop and put it and put it in a different function.
 
 // ****** Objects ******//
 
@@ -756,7 +756,7 @@ circle.draw(); //Draw Method
 function createCircle(radius) {
     return {
         radius, //if our key and value are the same we can remove the value
-        draw(){
+        draw(){ //define a function within an object by dropping the function keyword
             console.log('draw');
         }
     }; 
@@ -765,3 +765,470 @@ function createCircle(radius) {
 const circle1 = createCircle(1);
 console.log(circle1);
 
+// CONSTRUCTOR FUNCTIONS
+
+/*Job of this function is to create functions
+//The naming convention of this function is different, written in Pascal Notation
+//Camel Notations: oneTwoThreeFour
+//Pascal Notation: OneTwoThreeFour
+
+//'This' Keyword - refers to the object that it belongs to and is reference to 
+//the object that is executing this piece of code.
+// With Dot notation we can access properties of an object, we can read a property
+//or we can set a property
+//'New' Operator - 
+1. Creates an empty javascript object, happens under the hood
+2. Sets 'this' to point to the object the object it creates
+3. Returns the object from the function
+*/
+
+function Circle(radius) {
+    this.radius = radius;
+    this.draw = function() {
+        console.log('draw');
+    }
+    //return this; happens under the hood.
+}
+
+const circle = new Circle(1);
+const x = {};
+
+// DIFFERENCE BETWEEN FACTORY VS CONSTRUCTOR FUNCTIONS
+//Factory Function calls a function and return a new object. Written in Camel Case
+//Constructor Functions use the 'New' operator and in stead of returning an object
+//we use the 'this' keyword. Written in Pascal Case
+
+// FACTORY FUNCTION
+function createCircle(radius) {
+    return {
+        radius, //if our key and value are the same we can remove the value
+        draw(){ //define a function within an object by dropping the function keyword
+            console.log('draw');
+        }
+    }; 
+}
+
+const circle1 = createCircle(1);
+console.log(circle1);
+
+//CONSTRUCTOR FUNCTION
+function Circle(radius) {
+    this.radius = radius;
+    this.draw = function() {
+        console.log('draw');
+    }
+    //return this; happens under the hood.
+}
+
+const circle = new Circle(1);
+const x = {};
+
+//DYNAMIC NATURE OF OBJECTS
+
+//In Javascript, we can add or remove properties or methods.
+// Even though we've defined the circle as a 'Constant', we can still change
+//its properties and functions because it is 'Dynamic"
+// 'const' means that we can reassign this variable. We cannot reset circle to 
+//a new object
+
+
+const circle = {
+    radius: 1
+};
+
+circle.color = 'yellow';
+circle.draw = function() {}
+
+delete circle.color;
+delete circle.draw;
+
+console.log(circle);
+
+
+// CONSTRUCTOR PROPERTY
+//Every Object in Javascript has a property called constructor. Constructor references
+//the code that was used to construct or create that object. 
+// Let's look at the 'circle' and 'another' objects constructor property.
+// When we type 'another.constructor' in the console, we see the code that 'constructed'
+//this object. Constructor Function below.
+
+// 'circle.constructor' returns f Object() { (native code)}. A buildt in constructor
+//function in javascript.
+
+// FACTORY FUNCTION
+function createCircle(radius) {
+    return {
+        radius, //if our key and value are the same we can remove the value
+        draw(){ //define a function within an object by dropping the function keyword
+            console.log('draw');
+        }
+    }; 
+}
+
+const circle = createCircle(1);
+
+
+//CONSTRUCTOR FUNCTION
+function Circle(radius) {
+    this.radius = radius;
+    this.draw = function() {
+        console.log('draw');
+    }
+    //return this; happens under the hood.
+}
+
+const another = new Circle(1);
+
+let x = {};
+
+//When we use the 'Object Literal' Syntax, JavaScript will translate it to something
+//like this.
+//let x = new Object();
+
+//The Circle object we created and returned in our factory function. Because we used
+//the Object Literal Syntax, internally it was created using an object constructor 
+//function
+
+//Built in Constructors
+
+new String(); // '', "", ``
+new Boolean(); //true, false
+new Number(); // 1, 2, 3, ...
+
+//Takeaway: Every Object has a constructor property and that references the function
+//that was used to create that object.
+
+// FUNCTIONS ARE OBJECTS
+
+//Dot notations brings up a menu in vscode to show all the 'members' of an object.
+//The purple icons are methods, like call, bind, and apply.
+//The blue icons are properties.
+
+
+//CONSTRUCTOR FUNCTION
+function Circle(radius) {
+    this.radius = radius;
+    this.draw = function() {
+        console.log('draw');
+    }
+    //return this; happens under the hood.
+}
+
+const another = new Circle(1);
+
+//When we declare a function like the above example, internally, it's represented
+//like the code below.
+const Circle1 = new Function('radius' `
+this.radius = radius;
+this.draw = function() {
+    console.log('draw');`)
+
+const circle = new Circle1(1);// Now we can call our Circle 1 Object just like
+                              //we can call our Circle1 function and it creates an object
+
+const another = new Circle(1);
+
+Circle.call({}, 1); //this expression is the same as the expression on line 926
+
+//When we use the 'New' Operator it will internally create an
+//empty object and passes that as the first argument to the call method. This object
+//will determine the context for the 'this' keyword. So the 'this' keyword above
+//will reference the object created in Circle.call({})
+
+//If we do not use the 'new' operator, then 'this' will point to the global object
+//which is 'window'
+//This is what it looks like under the hood. 
+//Circle.call({},1) is actually Circle.call(window,1)
+//So the first argument {} specifies the target of 'this'
+
+//APPLY METHOD
+Circle.apply({}, 1);
+//Calls a function but instead of passing all the arguments explicitly such as
+// Circle.call({}, 1,2,3,4) we pass them in an array like
+// Circle.apply({}, [1, 2, 3,]);
+//This is useful if you already have an array somewhere in your application and you
+//want to pass an array as the second argument to the apply method.
+
+//Takaway: In Javascript Functions are Objects
+
+//Value vs Reference Types
+
+/* Value Types (Also Called Primitives)
+Number
+String
+Boolean
+Symbol (new in ES6)
+undefined
+null
+*/
+
+/* Reference Types (Also called Objects)
+Objects
+Functions
+Array
+*/
+
+//Define two primitives
+let x = 10;
+let y = x;
+
+x = 20;
+
+//X and Y are two independant variables
+// When we work with primitves the value is stored in the variable, when we copy
+// this variable the value that is stored in the variable is also copied into the 
+//new variable. So the values are independent of each other. That changes when we
+//use an oject.
+
+//Define an object
+let x = {value: 10};
+let y = x;
+
+x.value = 20;
+
+//TAKEAWAY: When we assign an object to a variable, like the example above,
+//that object is not stored in that variable
+//The Object is stored somewhere else in memory, and the address of that memory
+//location is stored inside that variable 
+// so when we copy x to y as we did above, it's the address or the reference that
+//is copied. In other words, both x and y are pointing to the same object in memory.
+//And when we modify each object using x or y, its changes are immediatley visbile
+//to the other variable
+
+//CONCLUSION: 
+//PRIMITIVES are copied by their value
+//Objects are copied by their reference "address in memory"
+
+//Primitive
+let number = 10;
+
+function increase(number) {
+    number++;
+}
+
+increase(number);
+console.log(number);
+
+//Output: 10
+//This is because the 'number' variable in the increase functin is independent
+// from the the first 'number' variable that we defined. Even though we increment
+// number using number++; , the value number reverts back to 10 when the function
+//has completed its task. 10 is incremented to 11 only within the 'Scope' of the 
+//increase function. 
+
+//Reference Type
+let obj = { value: 10 };
+
+function increase(obj) {
+    obj.value++;
+}
+
+increase(obj);
+console.log(obj);
+
+//Output: 11
+//This is because when we call increase and pass in obj, This Object is passed
+//by it's reference. So the local paramater will also point to the same object
+//We have two variables that are pointing to the same NOT two independent copies.
+//Any changes made to this object are visible to the other variable.
+
+//TAKEAWAY: In javascript we have value types also called primitives as well as
+//reference types also called Objects.
+
+//ENUMERATING PROPERTIES OF AN OBJECT
+
+const circle = {
+    radius: 1,
+    draw() {
+        console.log('draw');
+    }
+};
+
+for (let key in circle) //iterates (loops through) all the properties and methods of an object.
+    console.log(key, circle[key]); //Use Bracket Notation to get the value of a property. circle of key
+
+//An object is not iterable with the for of loop because the for of loop can only
+//iterate arrays and maps. Therefore, we use a function called Obj.keys , which gets all the
+//keys in our circle object and turns them into an array. 
+
+for  (let key of Object.keys(circle))
+    console.log(key);
+
+//Object is a built in constructor function such as 
+//function Object() {}
+
+//Whenever we create an object using the object literal syntax, internally that is
+//translated into a call to this constructor function.
+
+//If we create a new object
+const x = { value: 1 };
+//Internally it does this
+const x = new Object();
+
+//All functions are Objects in javascript so they have properties and methods
+//that we can access using the Dot Notation
+// When we type Object. we can see all the properties and methods defined in that object
+//The keys() method returns a string array which contains all the properties and methods
+//in this object.
+
+//entries() method is similiar to keys() method but instead of returning the keys
+// as a 'string' array
+//entries() method returns an array of each key:value pair.
+//The first element of the array is the key and the second is the value
+
+for  (let entry of Object.entries(circle))
+    console.log(entry);
+
+//To check to see if a given object has a given property or method
+if ('color' in circle) console.log('yes');
+
+//TAKEAWAY:
+//Simplest way to enumerate the properties in an object is to use the for in loop
+//We can also use the for of loop with Object.keys and Object.entries
+//To see if a given method or property exist we use the 'in' operator.
+
+//CLONING AN OBJECT
+
+const circle = {
+    radius: 1,
+    draw() {
+        console.log('draw')
+    }
+};
+
+const another = {}; //Copy of Circle Object set to empty object
+for (let key in circle) //use to iterate all properties in object and copy it to empty object
+    another[key] = circle[key];//Use bracket notation to access a property with the given key
+
+//The above code is similiar to the code below. We are setting radius property of
+//another object to circle of radius
+another['radius'] = circle['radius']; 
+//another of radius is equal to circle of radius.
+//On the right side of the operator we are reading the radius property which is 1
+//and then we're assigning it to the radius property of the anotherobject
+
+//The above approach for copying or cloning is an old way of doing things
+//In modern Javascript we use the Object.assign method.
+
+//This method takes all the properties and methods in the source object, copies them
+// into the new object, and then returns the result.
+//Doing this is the same as doing the 3 lines of code above
+//As the first argument we can pass a target object which can be an empty object,
+//or an existing object. Then we can pass 1 or more source objects such as circle.
+//
+const another = Object.assign({
+    color: 'yellow'
+}, circle);
+
+//SPREAD OPERATOR - an even more elegent way to clone objects. Takes all the methods
+//and properties within an object and puts them in the new object.
+// Spread Operator is written as three dots, ...
+const another = {...circle}
+
+//TAKEAWAY: Object.assign copies the properties or methods from one or more source
+//objects into a target object and we can use that to clone an object or combine
+//multiple objects into a single object
+//Spread Operator us used to 'spread' and object. Copy all its properties and methods
+//and putting them into another object.
+
+//GARBAGE COLLECTOR - runs automatically in the background to allocate memory
+
+//In lower level languages such as C or C++ when creating an object we have to 
+//allocate memory to it and when we're done we have to de-allocate that memory.
+// In Javascript we do not have this concept.  
+
+//When we create a new object the memory is automatically allocated to this object,
+//The Javascript Engine's 'Garbage Collector' uses a complex algorithm to allocate
+//and de-allocate this memory for us automatically. It's job is to find the variables
+//or constants that are no longer used and then de-allocate the memory.
+let circle = {};
+console.log(circle);
+
+//BUILT IN OBJECTS IN JAVASCRIPT
+//MATH
+
+Math.random(); //generates a random number
+
+function getRandom() {
+    return Math.random();
+}
+
+//Get a random number between two values
+
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+Math.round(1.9); //returns rounded number
+Math.max [1, 2, 3, 4, 5]; //returns largest value
+
+//STRING OBJECT
+const another = new String('hi')
+
+// Useful String Methods
+
+message.length //used to count the number of characters
+message[0] //string indexing
+message.includes('my')//check to see if string contains paramaters/Case Sensitive
+message.startsWith('This') //check beginning of string
+message.endsWith('beans')//check end of string
+message.indexOf('my')//what index does this start at?
+message.replace("This is my second message")// replaces string
+message.toUpperCase('THIS IS MY FIRST MESSAGE')// converts to uppercase
+message.trim() //gets rid of all the whitespace before and after our message
+message.trimLeft() //gets rid of space at beginning
+message.trimRight() //gets rid of space at end
+
+//ESCAPE NOTATION
+//***See Notation */
+//Special Characters that allow you to add additional text features like quotes
+
+
+const message = 'This is my\n \'first message';
+
+message.split(' ')// splits a string based on a given character, if we pass in a 
+//whitespace ' ' then we return an array with each word in our message as an element.
+// STRING - Built in Constructor Object
+
+//STRING PRIMITIVE
+//Even though a string primitive is not an object we can still use it like one.
+//When we use the Dot Notation with a string primitive, Javascript Engine internally
+//wraps this with a string object
+const message = 'This is my first message';
+
+//TEMPLATE LITERALS
+
+//If we wanted to make our code appear like the output and add additional quotes
+//We would concatenate the messages, add escape characters, and put them on separate lines
+
+const message = 'This is my\n' + 
+'\'first\' message';
+
+//The above looks really bad so we will use Template Literals instead.
+
+//Types of Literals
+//Object {}
+//Boolean true, false
+//String '', ""
+//Template `` (Starting in ES6) No concatenation or Escape Notation needed!
+
+const another = `This is my 
+'first' message`; //This allows us to format our string the way we want it to look
+//without having to use escape characters
+
+//PLACEHOLDERS - ${} , pass the name of a variable or constant
+//We can add any type of expression that produces a value. ${2 + 3}
+//We can also call a function that returns a value.
+
+//Instead of using this code 
+const name = 'John';
+const message = "Hi " + name + ',\n';
+
+//We can use this code with a placeholder 
+const another = 
+`Hi ${name} $,
+
+Thank you for joining my mailing list.
+
+Regards,
+Colin`;
