@@ -1380,3 +1380,291 @@ let restaurants = [
 ]
 
 console.log(priceRanges);
+
+/*********************************************************************/
+//ARRAYS//
+
+const numbers = [3, 4]; //can't reassign the variable numbers but we can modify the array.
+//arrays are objects
+
+//Add to End of array
+numbers.push(5,6);
+
+
+//Add to Beginning
+numbers.unshift(1, 2);
+
+//Middle
+numbers.splice(2, 0, 'a', 'b');
+console.log(numbers);
+
+/******************************************************************** */
+//FINDING ELEMENTS IN AN ARRAY PRIMITIVE TYPES 
+
+const numbers = [1, 2, 3, 1,  4];
+
+console.log(numbers.indexOf('a')); //Outputs -1 because it does not exist
+//Type of paramater maters
+console.log(numbers.lastIndexOf(1));
+
+console.log(numbers.indexOf(1) !== -1); //Checks to see if the value exists in the array. Output: True
+console.log(numbers.includes(1)); //Another way to check to see if value exists in an array.
+
+console.log(numbers.indexOf(1, 2)); //First Paramater finds the first index(first place 1 is found), 
+//second paramater tells it to begin looking at the second index. Output: 3
+
+/****************************************************************************************************/
+//FINDING ELEMENTS IN AN ARRAY REFERENCE TYPES
+
+const courses = [
+    { id: 1, name: 'a'},
+    { id: 2, name: 'b'},
+];
+
+console.log(courses.includes({ id: 1, name: 'a'})); // Output: False because these are two different objects
+//in two different locations, therefore they have two separate references in memory
+
+//if you have an array with reference types you need to use the 'Find' method
+//The 'Find' Method takes in a function as one of its arguments
+//array.find(function(element)) {
+//    return element > 10;
+//};
+//This function is called a 'Predicate' and we use it to determine if the given element exists in the array.
+//Then we return a boolean (return element >10;) will output either true or false.
+//When we find an element that matches the criteria we stop and return that element otherwise we return
+//undefined
+
+//criteria: find a course equal to a
+
+const course1 = courses.find(function(course) {
+    return course.name === 'a';
+});
+
+
+const course2 = courses.findIndex(function(course) {
+    return course.name === 'a';
+});
+
+console.log(course2);
+
+/****************************************************************************************************/
+//ARROW FUNCTIONS ES6
+
+const courses = [
+    { id: 1, name: 'a'},
+    { id: 2, name: 'b'},
+];
+
+//Arrow Function - Used to pass a function as a callback function or as an argument for a different method.
+// Start by removing the function keyword 
+// Then seperate the paramaters from the body by putting an arrow in between them.
+//If your function has a single paramater then you can also get rid of the paranthesis.
+//If you don't have any paramater you have to pass an empty paranthesis()
+//If your function is a single line of code and is returning a single line of code you can make it shorter,
+//by removing the return keyword, removing the curly braces, and putting everything on one line.
+//Instead of using this code
+const course1 = courses.find(function(course) {
+    return course.name === 'a';
+});
+
+//Use this code 
+const course = courses.find(course => course.name === 'a'); //Course "Goes To" Course.Name = A.
+
+console.log(course);
+
+/****************************************************************************************************/
+//REMOVING ELEMENTS
+
+const numbers = [1, 2, 3, 4];
+
+//const last = numbers.pop();
+
+//const first = numbers.shift();
+
+numbers.splice(2, 1); //if you want do delete multiple elements, pass a number greater that 1 in the
+console.log(numbers); //second paramater.
+
+//add to array 
+//push - add to the end
+//unshift - add to the beginning
+//splice - add to the middle 
+
+//remove from array
+//pop - remove from the end
+//shift - add to the beginning
+//splice - add to the middle 
+
+/****************************************************************************************************/
+// EMPTYING AN ARRAY
+
+let number = [1, 2, 3, 4];
+let another = numbers;
+
+//Solution 1 - reassign to new array 
+//This will not work if you have another variable pointing to the old array 
+//The garbage collector will not clear out the memory used by the old array if something is using it.
+numbers = [];
+console.log(numbers);
+
+//Solution 2 - set the length property to 0 and it will truncate the array.
+numbers.length = 0;
+
+//Solution 3 - Use the Splice Method
+numbers.splice(0, numbers.length);
+
+//Solution 4 - POP will continue deleting elements from an array as many times as it is called.
+while (numbers.length > 0)
+    numbers.pop();
+
+console.log(numbers);
+console.log(another);
+
+//Solution 2 or solution 1 is best.
+
+/****************************************************************************************************/
+//COMBINING AND SLICING AN ARRAY
+
+//Combine the arrays using the 'Concat' method. (concatenate) 
+//Separate the arrays by using the 'Slice" Method.
+
+//Primitive values are copied into the target array
+//Reference values are not copied. Their address or 'reference' is copied.
+//If the value of the object is change then it will change all references to that object.
+
+const first = [1, 2, 3];
+const second = [4, 5, 6];
+
+const combined = first.concat(second);
+
+//const slice = combined.slice(2, 4); //Slice starting at 2 and ending at 4
+//const slice = combined.slice(2); //Slice everything after 2
+const slice = combined.slice(); //returns a copy of the first array
+
+console.log(combined);
+console.log(slice);
+
+/****************************************************************************************************/
+//THE SPREAD OPERATOR ES6
+
+const first = [1, 2, 3];
+const second = [4, 5, 6];
+
+//Insted of using this code
+//const combined = first.conctat(second);
+
+//Use this Code
+const combined = [...first, ...second]; //When you spread an array, all its elements are returned indivudally
+//Spread operator is flexible and allows you to add elements between the elements
+
+//const copy = combined.slice();
+const copy = [...combined]; //returns all the elements of the combined array and puts them into the new
+//array.
+
+/****************************************************************************************************/
+//ITERATING AN ARRAY
+
+//FOR OF LOOP - ITERATES AN ARRAY
+
+const numbers = [1, 2, 3,];
+
+for (let number of numbers)
+    console.log(number);
+
+
+//FOR EACH METHOD - another way to Iterate arrays
+//For Each Method takes a callback function as a paramater.
+//This Function takes a paramater and logs it to the console
+//This Function is executed for each element in the array. Each element will be passed as an argument to
+//this function
+numbers.forEach(function(number) {
+    console.log(number);
+});
+
+//The arrow function syntax can be used to simplify this code
+numbers.forEach(number => console.log(number));
+
+//Choose one of these to use based on personal preference
+//The callback function is useful because it can take an index as a second paramater
+numbers.forEach((number, index) => console.log(index, number));
+
+//We don't get the index with the For Of Loop but instead we could use the For In Loop
+
+/****************************************************************************************************/
+//JOINING ARRAYS
+
+const numbers = [1, 2, 3];
+const joined = numbers.join(','); //Join numbers in array using a 'separator' element
+console.log(joined);
+
+const message = 'This is my first message';
+const parts = message.split(' ');
+console.log(parts);
+
+const combined = parts.join('-');
+console.log(combined);
+
+//These are useful when creating a url 'slug'
+//For Ex. stackoverflow.com/creating-arrays-in-javascript
+//The URL won't let you use white space for the title.
+//You might have to delete the whitespace, split the string, and join it again with hyphens.
+
+/****************************************************************************************************/
+//SORTING ARRAYS
+
+const numbers = [2, 3, 1];
+numbers.sort(); //converts each element to a string and then sorts the elements in the array.
+console.log(numbers);
+
+numbers.reverse(); //reverse elements
+console.log(numbers);
+
+//Reference type 
+//'Sort' method optionally takes an argument that is a function that is used for comparison.
+//When we call the sort method it gets two objects in this array and compares them. If they are in the right
+//order it will skip to the next few elements, otherwise it's going rearrange them.
+const courses = [
+    { id: 1, name: 'Node.js'},
+    { id: 2, name: 'JavaScript' },
+];
+
+
+courses.sort(function(a, b) {
+
+    //Solution can be to convert them to upper or lower case
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
+
+    if (nameA < nameB) return -1;
+    if (nameB > nameB) return 1;
+    return 0;
+});
+
+console.log(courses); //Output: orders the Objects with Javascript First
+//Note: If I were to change Node.js to Node.Js it puts Node.Js first because each character in a computer
+//is internally represented as a number.
+//ASCII Table (American Standard Code for American Interchange)
+//For this reason, It is best to exclude Case Sensitivity when comparing two names.
+
+/****************************************************************************************************/
+//TESTING THE ELEMENTS IN AN ARRAY
+
+const numbers = [1, -1, 2, 3];
+
+//'Every" method takes a function that can take 3 paramaters, Value, Number, and Index.
+// This function runs on all the elements in an array but it terminates when it doesn't find a match.
+/* const allPositive = numbers.every(function(value) {
+    return value >= 0;
+});  */
+
+// console.log(allPositive);
+
+//Some method will run callback function on every element on the array, as soon as the criteria matches
+//it will terminate.
+const atLeastOnePositive = numbers.some(function(value) {
+    return value >= 0;
+}); 
+
+console.log(atLeastOnePositive);
+
+//every() checks to see if every element in a given array matches the given criteria.
+//some() checks to see if we have at least one element that matches the given criteria.
