@@ -1390,7 +1390,6 @@ const numbers = [3, 4]; //can't reassign the variable numbers but we can modify 
 //Add to End of array
 numbers.push(5,6);
 
-
 //Add to Beginning
 numbers.unshift(1, 2);
 
@@ -1401,10 +1400,10 @@ console.log(numbers);
 /******************************************************************** */
 //FINDING ELEMENTS IN AN ARRAY PRIMITIVE TYPES 
 
-const numbers = [1, 2, 3, 1,  4];
+const numbers = [1, 2, 3, 1, 4];
 
 console.log(numbers.indexOf('a')); //Outputs -1 because it does not exist
-//Type of paramater maters
+//Type of paramater matters
 console.log(numbers.lastIndexOf(1));
 
 console.log(numbers.indexOf(1) !== -1); //Checks to see if the value exists in the array. Output: True
@@ -1426,9 +1425,9 @@ console.log(courses.includes({ id: 1, name: 'a'})); // Output: False because the
 
 //if you have an array with reference types you need to use the 'Find' method
 //The 'Find' Method takes in a function as one of its arguments
-//array.find(function(element)) {
-//    return element > 10;
-//};
+array.find(function(element) {
+    return element > 10;
+});
 //This function is called a 'Predicate' and we use it to determine if the given element exists in the array.
 //Then we return a boolean (return element >10;) will output either true or false.
 //When we find an element that matches the criteria we stop and return that element otherwise we return
@@ -1462,6 +1461,7 @@ const courses = [
 //If you don't have any paramater you have to pass an empty paranthesis()
 //If your function is a single line of code and is returning a single line of code you can make it shorter,
 //by removing the return keyword, removing the curly braces, and putting everything on one line.
+
 //Instead of using this code
 const course1 = courses.find(function(course) {
     return course.name === 'a';
@@ -1477,9 +1477,9 @@ console.log(course);
 
 const numbers = [1, 2, 3, 4];
 
-//const last = numbers.pop();
+const last = numbers.pop();
 
-//const first = numbers.shift();
+const first = numbers.shift();
 
 numbers.splice(2, 1); //if you want do delete multiple elements, pass a number greater that 1 in the
 console.log(numbers); //second paramater.
@@ -1491,8 +1491,8 @@ console.log(numbers); //second paramater.
 
 //remove from array
 //pop - remove from the end
-//shift - add to the beginning
-//splice - add to the middle 
+//shift - remove the beginning
+//splice - delete from the middle 
 
 /****************************************************************************************************/
 // EMPTYING AN ARRAY
@@ -1536,8 +1536,8 @@ const second = [4, 5, 6];
 
 const combined = first.concat(second);
 
-//const slice = combined.slice(2, 4); //Slice starting at 2 and ending at 4
-//const slice = combined.slice(2); //Slice everything after 2
+const slice = combined.slice(2, 4); //Slice starting at 2 and ending at 4
+const slice = combined.slice(2); //Slice everything after 2
 const slice = combined.slice(); //returns a copy of the first array
 
 console.log(combined);
@@ -1550,13 +1550,15 @@ const first = [1, 2, 3];
 const second = [4, 5, 6];
 
 //Insted of using this code
-//const combined = first.conctat(second);
+const combined = first.conctat(second);
 
 //Use this Code
 const combined = [...first, ...second]; //When you spread an array, all its elements are returned indivudally
-//Spread operator is flexible and allows you to add elements between the elements
 
-//const copy = combined.slice();
+//Spread operator is flexible and allows you to add elements between the elements
+const combined = [...first, 3, ...second]
+
+const copy = combined.slice();
 const copy = [...combined]; //returns all the elements of the combined array and puts them into the new
 //array.
 
@@ -1668,3 +1670,131 @@ console.log(atLeastOnePositive);
 
 //every() checks to see if every element in a given array matches the given criteria.
 //some() checks to see if we have at least one element that matches the given criteria.
+
+/****************************************************************************************************/
+//FILTERING AN ARRAY
+
+//Filter Callback Function- optionally takes in 3 paramaters: Value, Index, and Array.
+//We set this function to filter and return any number that is positive
+
+const numbers = [1, -1, 2, 3];
+
+const filtered = numbers.filter(function(value) {
+    return value >= 0;
+})
+
+console.log(filtered);
+
+//We can also use an arrow function
+
+const filtered = numbers.filter(n => n >= 0); // Get numbers where number is greater than or equal to 0.
+
+//Realistically we would implement this with an array of objects. For ex. filtering restaurants.
+
+/****************************************************************************************************/
+//MAPPING AN ARRAY
+
+//Map Method - maps each item in array to someting else.
+//Construct an HTML markup using the elements in this array
+//Map Method takes in a function that can have three optional paramater: Value, Index, and Array.
+
+/* const numbers = [1, -1,  2, 3, ];
+
+const filtered = numbers.filter(n => n >= 0);
+
+const items = filtered.map(n => '<li>' + n + '</li>')// We can display each number using a bullet point with 
+//this markup. We map the number variable to the html markup.
+
+//create an unordered list element
+//Use the Join Method to join the elements of this array and create a string
+const html = '<ul>' + items.join('') + '</ul>';
+console.log(html);
+
+//Takeaway: We can use th map method to map each element in an array into something else. */
+
+
+//MAP TO OBJECTS
+
+//Mapping each number to an object with a value and a property is very useful when building real world
+//applications
+const numbers = [1, -1,  2, 3, ];
+
+const filtered = numbers.filter(n => n >= 0); 
+
+//objects have to be put in paranthesis to  be placed on a single line of code with an arrow function
+//The javascript engine will think its parsing a code block instead of an object and throw an error.
+const items = filtered.map(n => {
+    return obj = { value: n };
+});
+
+console.log(items);
+
+const items = filtered.map(n => ({ value: n }) );
+
+console.log(items); 
+
+//Both the filter and the map method return a new array. They don't modify the original array.
+//Both of these methods are chainable which means we can call them one after another in a chain.
+
+//CHAINING - First method returns a result, then a method is called on the result of the previous method.
+//When chaining methods it is best to put each method call on a separate line.
+
+//To chain the methods
+//1. Delete the 'filtered' constant
+//Since the 'filtered' constant is only used in one please we don't need to store the result in a 
+//separate constant
+//2. remove the semicolon and add it to the final statement to terminate.
+const numbers = [1, -1,  2, 3, ];
+
+const items = numbers //store result in items
+    .filter(n => n >= 0) //filter where n is greater than 0
+    .map(n => ({ value: n }) ) //call the map method on the result that is returned from the filter statement
+    .filter(obj => obj.value > 1)// call the filter method on the result of the map method.
+    .map(obj => obj.value); // map each object to a number
+
+console.log(items);
+
+****************************************************************************************************/
+//REDUCING AN ARRAY
+
+//Calculate the sum of all numbers in the array
+//Similar to calculating the sum of all the items in a shopping cart.
+
+const numbers = [1, -1, 2, 3];
+
+/* let sum = 0;
+for (let n of numbers) //loop over the array
+    sum += n; //add each number to sum and store it in sum. */
+
+    
+    //Cleaner way to write this code
+    //REDUCE METHOD - reduce all the elements in an array into a single value.
+    //Reduce Method- takes a callback function with two paramaters for the first argument
+    //accumulator is initialized to store the value like 'sum' was in the previous example.
+    //The callback function is executed multiple times. Each time this 'currentValue' will be set to one element.
+    //In each call we want to get the currentValue and add it to accumulator.
+    //To initialize accumulator to 0 we add 0 as a second argument to the 'reduce method'
+    
+    //Below is an example of what happens during each call of the callback function to produce the result.
+    //First Call: a = 0, c = 1 => a = 1
+    //2nd: a = 1, c = -1 => a = 0
+    //3rd: a = 0, c = 2 => a = 2
+    //4th: a = 2, c = 3 => a = 5
+/*     const sum = numbers.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue;
+    }, 0);
+    
+    console.log(sum); */
+
+    //We can also make this code shorter by excluding the initialization of the accumulator
+    //Accumulator will automatically be set to the first element.
+    //First Call: a = 1, c = -1 => a = 0
+    //2nd: a = 0, c = 2 => a = 2
+    //3rd: a = 2, c = 3 => a = 5
+    //We can also remove the return keyword and the curly braces. because we have a single line and we
+    //are simply returning a value.
+    const sum = numbers.reduce(
+        (accumulator, currentValue) => accumulator + currentValue
+    );
+    
+    console.log(sum);
