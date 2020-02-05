@@ -1754,7 +1754,7 @@ const items = numbers //store result in items
 
 console.log(items);
 
-****************************************************************************************************/
+/****************************************************************************************************/
 //REDUCING AN ARRAY
 
 //Calculate the sum of all numbers in the array
@@ -1762,9 +1762,9 @@ console.log(items);
 
 const numbers = [1, -1, 2, 3];
 
-/* let sum = 0;
+let sum = 0;
 for (let n of numbers) //loop over the array
-    sum += n; //add each number to sum and store it in sum. */
+    sum += n; //add each number to sum and store it in sum. 
 
     
     //Cleaner way to write this code
@@ -1780,11 +1780,11 @@ for (let n of numbers) //loop over the array
     //2nd: a = 1, c = -1 => a = 0
     //3rd: a = 0, c = 2 => a = 2
     //4th: a = 2, c = 3 => a = 5
-/*     const sum = numbers.reduce((accumulator, currentValue) => {
+const sum = numbers.reduce((accumulator, currentValue) => {
         return accumulator + currentValue;
     }, 0);
     
-    console.log(sum); */
+    console.log(sum); 
 
     //We can also make this code shorter by excluding the initialization of the accumulator
     //Accumulator will automatically be set to the first element.
@@ -1798,3 +1798,105 @@ for (let n of numbers) //loop over the array
     );
     
     console.log(sum);
+
+    /****************************************************************************************************/
+//Excercise 1: Array From Range
+
+//1. Create Empty Array
+//2. 
+
+const numbers = arrayFromRange(1, 4);
+
+function arrayFromRange(min, max) {
+    const output = []; //Create an empty array within the function
+    for (let i = min; i <= max; i++) //set i to the minimum value, as long as i <= max, increment i
+        output.push(i); //push each incremented instance of i to the empty array
+    return output; //return the array
+};
+    
+console.log(numbers); //pass numbers in as a paramater which in turn calls the arrayFrom Range function
+
+/****************************************************************************************************/
+//Excercise 2 - Includes
+
+//Write a function to create the Includes method.
+//if we have the search element in the array we should return true, otherwise return false.
+
+const numbers = [1, 2, 3, 4];
+
+function includes(array, searchElement) {
+    for (let element of array)
+        if (element === searchElement)
+            return true;
+    return false;
+};
+
+console.log(includes(numbers, 1));
+
+//console.log(numbers.includes(1)); can't use this becaus we have to build the includes function.
+
+/****************************************************************************************************/
+//Excercise 3 - Except
+
+//Except should check each excluded number against the values in the the array
+
+const numbers = [1, 2, 3, 4, 5]
+
+const output = except(numbers, [1, 2, 3]); // takes in the values of an array and another array with the values we want to exclude.
+
+function except(array, excluded) {//This function takes in two arrays
+    const output = []; //set output to an empty array, we will store exluded numbers in this array.
+    for (let element of array) //itereate through each element of the first array
+        if (!excluded.includes(element)) //check to see if the current element is in the excluded array
+            output.push(element);// If it's not then we'll add this element to our output array.
+    return output; 
+};
+
+console.log(output);
+
+/****************************************************************************************************/
+//Excercise 4 Moving an Element
+
+const numbers = [1, 2, 3, 4];
+
+const output = move(numbers, 1, -1); //first paramater is the element we choose, second paramater moves it left or right
+
+function move(array, index, offset) { //array, index of the element to move, offset 
+    const position = index  + offset;
+    if (position >= array.length || position < 0) {
+        console.error('Invalid Offset.');
+    }
+
+    const output = [...array];
+    const element = output.splice(index, 1)[0];
+    output.splice(index + offset, 0, element);
+    return output;
+};
+
+console.log(output);
+
+/****************************************************************************************************/
+//Excercise 5 - Count Occurences
+
+const numbers = [1, 2, 3, 4];
+
+const count = countOccurences(numbers, -1);
+
+console.log(count);
+
+function countOccurences(array, searchElement) {
+/*     let count = 0;
+    for (let element of array)
+        if (element === searchElement)
+        count++;
+    return count;
+ */
+return array.reduce((accumulator, current) => {
+    const occurence = (current === searchElement) ? 1 : 0;
+    console.log(accumulator, current, searchElement);
+    return accumulator + occurence;
+}, 0);
+}
+
+//Excercise 7
+//Excercise 8
