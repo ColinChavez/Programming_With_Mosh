@@ -1900,3 +1900,514 @@ return array.reduce((accumulator, current) => {
 
 //Excercise 7
 //Excercise 8
+
+/****************************************************************************************************/
+// Function Declaration
+function walk() {
+    console.log('walk');
+}
+
+//Anonymous Function Expression - Declare a varaiable and set it to a function,A function is an Object is JS
+let run = function() {
+    console.log('run');
+};
+
+//Named Function Expression
+let run = function walk() {
+    console.log('run');
+};
+
+let move = run;
+run(); //references anonymous function
+move(); //now both move and run reference the same anonymous function, which is one object in memory.
+
+//Recap: In Javascript there are two ways to define a function.
+//1. Function Declaration Syntax
+//2. Function Expression.
+
+/****************************************************************************************************/
+//HOISTING
+
+//Key Differences between function declaration and expression.
+
+//Function Declaration - We can call this function BEFORE it is defined.
+
+//Function Expression - We can call this function AFTER it is defined.
+
+//Hoisting - JavaScript engine will move all our function declarations to the top of the file at runtime.
+
+/****************************************************************************************************/
+//ARGUMENTS
+
+//Javascript is a Dynamic language that allows you to redefine variables to different types.
+let x = 1;
+x = 'a';
+
+//This can also be done with functions
+function sum(a, b) { //Every function in JS has special object called arguments
+    console.log(arguments);
+    return a + b; //1 + undefined = NaN 'Not a Number'
+}
+console.log(sum(1)); //If I try to pass only 1 argument to the sum function I get NaN because sum
+//requires 2 paramaters. If I pass only 1 then JS will automatically set B to Undefined. Same thing,
+//happens if we pass 0 arguments or more arguments than paramaters.
+console.log(sum(1,2,3,4,5));
+
+//Passing 1 argument above returns NaN because it is not a valid arithmatic operation
+//Passing 0 arguments produces the same result.
+//What if you want to have the flexibility to pass as many arguments as you want and get their sum?
+
+//ARGUMENTS OBJECT - Every function has an arguments Object. Looks like an array but its an Object.
+//Keys - indexes of the arguments passed to this function.
+
+/*
+Arguments(5) [1, 2, 3, 4, 5, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+0: 1
+1: 2
+2: 3
+3: 4
+4: 5
+length: 5
+callee: ƒ sum(a, b)
+Symbol(Symbol.iterator): ƒ values()
+__proto__: Object
+*/
+
+//Change the function to return the sum of all the arguments
+function sum() { //We can remove a,b since working directly with the arguments object.
+    let total = 0;
+    for (let value of arguments) //Use this loop to iterate over the arguments object. Only allowed because this object has an iterator.
+        total += value; //Add each value to our total variable
+    return total;
+    //console.log(arguments);
+   // return a + b; //1 + undefined = NaN 'Not a Number'
+}
+
+console.log(sum(1, 2, 3, 4, 5, 10));
+
+/****************************************************************************************************/
+//THE REST OPERATOR
+
+//Rest Operator - -- Allows you to have a varying number of paramaters.
+//...args 
+//Looks like SPREAD operator but it is not the same.
+
+function sum(...args) { 
+    console.log(args);
+}
+
+console.log(sum(1, 2, 3, 4, 5, 10));
+
+//Output for logging args
+/*
+(6) [1, 2, 3, 4, 5, 10]
+0: 1
+1: 2
+2: 3
+3: 4
+4: 5
+5: 10
+length: 6
+__proto__: Array(0)
+undefined index.js:14 
+*/
+
+//TAKEAWAY: When we apply the REST operator to a paramater of a function, we can pass a varying number of
+//arguments and the rest operator will take all of them and put them in an array.
+
+//If you want to get the sum of all the numbers in an array we can use the REDUCE Method.
+//Reduce can be used on the Arguments Object because it is an array.
+//Instead of defining a total variable and looping over the arguments object we can have one line of code
+//that gives us the same thing.
+
+function sum(...args) { 
+    return args.reduce((a, b) => a + b); //Call the reduce method since args is now an array
+}
+console.log(sum(1, 2, 3, 4, 5, 10));
+
+//Use this function to calculate the total costs of items in a shopping cart
+//Add a discount factor.
+
+function sum(discount, ...prices,) {
+    const total = prices.reduce((a, b) => a + b); //Store sum of all prices in the array to Total.
+    return total * (1 - discount); //Return Total multiplied by (1 subtract discount) = 0.9 * Total
+}
+
+console.log(sum(0.1, 20, 30)); //First paramater passes discount as 10 percent, Additional paramaters are
+//prices of items in shopping cart.
+
+//Attempt to add a value, someValue after ...prices
+//Js throws an error in console. "Rest paramater must be last formal paramater"
+// Rest Operator is called rest because we can have one or more paramatersbefore this operator, and the "Rest"
+//of the paramaters or arguments passed to the function using the Rest Operator.
+
+/****************************************************************************************************/
+//DEFAULT PARAMATERS
+
+//Write a function to calculate total interest
+function interest(principal, rate, years) {
+    return principal * rate / 100 * 100 * years;
+}
+
+console.log(interest(1000, 3.5, 5)); //loan,rate,term
+
+
+function interest(principal, rate, years) {
+    rate = rate || 3.5;  //If rate has a value (is truthy) we'll use that value, otherwise we use 3.5
+    years = years || 5;
+
+
+    return principal * rate / 100 * 100 * years;
+}
+
+console.log(interest(1000));
+
+//if we create default paramaters and remove them from the console.log, we get the same output.
+
+//ES6 allows us to set default paramaters in the function call
+//Note: every paramater following the first default paramater must have a default paramater.
+
+function interest(principal, rate = 3.5, years = 5) {
+    return principal * rate / 100 * 100 * years;
+}
+
+console.log(interest(1000));
+
+/****************************************************************************************************/
+//DEFAULT GETTERS AND SETTERS - Obect Method
+
+/* const person = {
+    firstName: 'Mike',
+    lastName: 'Hunt',
+    fullName: function() {
+        return `${person.firstName} ${person.lastName}`
+    }
+};
+
+console.log(person.fullName());
+
+//GETTERS - access properties in an object
+//SETTERS - change ( mutate) properties.
+ */
+
+ //Person Object with 2 paramaters
+ //Define a fullName method in the object with template literals - Problem with this is its READ ONLY
+ //Use Getter to access firstName and lastName properties within the object
+// Use Setter to mutate/change the firstName and lastName the properties outside the object
+const person = {
+    firstName: 'Mike',
+    lastName: 'Hunt',
+    get fullName() { //Add Getter to Method
+        return `${person.firstName} ${person.lastName}`; //Use template literal(Template Literals concatenate the parts)
+    },
+    set fullName(value) { //add setter method/ setter method must have at least 1 paramater. Paramater will equal whatever we have on the right side of the assignment operator.
+        const parts = value.split(' '); //Assume that value is a string/ We need to split that string with a space. This will return an array. We store that array in parts variable.
+        this.firstName = parts[0]; //set the value of first name to equal the first index of the new array 'parts'
+        this.lastName = parts[1]; ////set the value of last name to equal the second index of the new array 'parts'
+    }
+};
+
+person.fullName = 'John Smith'; //Setter, sets property to new name. Value Paramater = 'John Smith'
+
+console.log(person); // Log the person Object
+
+/****************************************************************************************************/
+//ERROR HANDLING/ TRY AND CATCH
+
+//Error handling should be done at the beginning of a function or method.
+//DEFENSIVE PROGRAMMING
+
+//If I tried to pass a boolean or anything other than a string I would get an error in the console
+//I have to build a try and catch to handle any errors.
+
+
+const person = {
+    firstName: 'Mike',
+    lastName: 'Hunt',
+    get fullName() { 
+        return `${person.firstName} ${person.lastName}`; 
+    },
+    set fullName(value) { 
+        if (typeof value !== 'string') 
+            throw new Error('Value is not a string.'); //Constructor Function to create new error object
+        const parts = value.split(' ');
+        if (parts.length !== 2) //If the 'parts' array length is not equal to 2
+            throw new Error('Enter a first and last name.') //throw a new error exception
+        this.firstName = parts[0]; 
+        this.lastName = parts[1]; 
+    }
+};
+
+try {
+person.fullName = 'York Hunt';
+}
+catch (e) { //catch the exception and display an error to the users. 'e' is the error object that we 'throw' above.
+    alert(e);//poor way of reporting errors. Normally we would display a red label
+}
+console.log(person); // Log the person Object
+
+
+/****************************************************************************************************/
+//LOCAL VS GLOBAL SCOPE
+
+//Scope of a variable or constant determines where that variable is accessible.
+const color = 'red'; //Global Scope, accessible anywhere in the program.
+
+
+function start() {
+    const message = 'hi'; //Local Scope, only accessible whithin function 
+    const color = 'blue'; //Local Variables or Constants take precedence over Global Variables or Constants.
+} 
+
+function stop() {
+    const message = 'bye';
+}
+
+start();
+
+//Avoid defining Global Variables or constants because they're accessible everywhere globally and
+//each function can accidentally change their value. This will lead to all kinda bugs.
+
+/****************************************************************************************************/
+//LET VS VAR
+
+function start() {
+    for (var i = 0; i < 5; i++) {
+        if (true) {
+        let color = 'red';
+        }
+    }
+    console.log(color);//if i try to call i outside the for block we get a value undefined error.
+}
+
+//Var - scope is not limited to the block it is defined. Function-Scoped
+//ES6 let, const create Block-Scoped variables
+
+//2nd Problem with Var
+// Var attatches Global Variables to the Window Object
+// Let does not.
+
+//Why is it bad to attatch a variable to the window object?
+//It can cause a lot of bugs in your program.
+var color = 'red';
+let age = 30;
+
+//Global Functions are also attatched to the window object.
+//We will later learn to avoid this with ENCAPSULATION.
+
+function sayHi() {
+    console.log('hi');
+}
+
+//TAKEAWAY: Avoid using the Var keyword because it creates variables that are function scoped and not
+//block scoped.
+
+/****************************************************************************************************/
+//The THIS Keyword
+
+//THIS - references the object that is executing the current function.
+
+//If a function is part of an object it is called a method
+//method => obj, method references that object itself.
+//If a fucnction is not part of an object then it is a Global object which references the global object 
+//(Window() in Browsers and Global() in Node.
+
+//method => obj
+//function => global (window, global)
+
+// Example of method => obj
+
+const video = {
+    title: 'a',
+    play() {
+        console.log(this); //Because play() is a method in the 'video' object, 'this' references the 
+    } //video object
+};
+video.stop = function() {
+    console.log(this); //'this' references the 'video' object because 'stop' is a method of the 'video obj
+};
+
+ video.play();
+
+// Example of function => global
+
+ const video = {
+    title: 'a',
+    play() {
+        console.log(this);
+    }
+};
+
+function playVideo() {
+    console.log(this); //this references the 'Global' Object.
+}
+
+
+//Example with Constructor Function
+//'This' in Constructor functions references the Constructor function rather than global or parent obj.
+//Because when we use the 'new' operator it creates an empty object in memory and sets 'this' to reference
+//that empty object.
+
+const video = {
+    title: 'a',
+    play() {
+        console.log(this);
+    }
+};
+
+function Video(title) {
+    this.title = title;
+    console.log(this);
+};
+
+ const v = new Video('a'); // {}
+
+ //Aother
+
+ const video = {
+    title: 'a',
+    tags: ['a', 'b', 'c'],
+    showTags() {
+        this.tags.forEach(function(tag) { //'this' references current obj 'video', 'tags' references property
+            console.log(tag); //Since 'tags' is an array we can call the 'forEach' method (CallBack function(tag)), we pass in 'tag' because each iteration will get the value of a tag.
+        });
+    }
+};
+
+video.showTags();
+
+//What if we want to show the title of the video next to each tag?
+//If we try to log 'this' and 'tag' , 'this' references the Global Object instead of the 'Video' Object
+//This is because we are trying to call 'this' inside of the 'CallBack' Function in the 'forEach' method.
+//Therefore this is references the 'Global'/Window Object instead of the 'Video' Function.
+//Here are 3 solutions to overcome this problem.
+
+//1. Add 'this' as a second argument to the 'forEach' callback function. This will allow 'this' to 
+//reference our local 'video' object
+/*forEach(callbackfn: (value: string, index: number, array: string[]) => void, thisArg?: any): void
+An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+Performs the specified action for each element in an array. */
+
+//The problem is that not all methods in JS allow you to pass a 'this' argument.
+
+/****************************************************************************************************/
+
+const video = {
+    title: 'a',
+    tags: ['a', 'b', 'c'],
+    showTags() {
+        this.tags.forEach(function(tag) { //'this' references current obj 'video', 'tags' references property
+            console.log(this.title, tag); //Since 'tags' is an array we can call the 'forEach' method (CallBack function(tag)), we pass in 'tag' because each iteration will get the value of a tag.
+        }, this);
+    }
+};
+
+video.showTags();
+
+//Example of how to change the value of 'this' within a function.
+//Solution 2: Create a constant called 'self' or 'that' and set its value to 'this' before you call
+//the 'CallBack' Function
+//In our 'CallBack' Function we can call 'self' instead of 'this' since 'self' references our local obj.
+//This however, is not the preferred way of doing things.
+
+const video = {
+    title: 'a',
+    tags: ['a', 'b', 'c'],
+    showTags() {
+        const self = this;
+        this.tags.forEach(function(tag) { 
+            console.log(self.title, tag); 
+        });
+    }
+};
+
+//A better way of doing things.
+//A function is an Object in Javascript, Therefore we can use the Dot Notations to call a method to 
+//change the value of 'this'
+//.call, .apply, or .bind
+
+
+function playVideo() {
+    console.log(this);
+}
+
+//.call method
+//The First Paramater of this Method is 'thisArg' which allows us to pass an 'Object' and 'this' will
+//reference that object.
+
+/* (method) Function.call(this: Function, thisArg: any, ...argArray: any[]): any
+Calls a method of an object, substituting another object for the current object.
+
+@param thisArg — The object to be used as the current object.
+
+@param argArray — A list of arguments to be passed to the method.*/
+playVideo.call({ name: 'Mike' }, 1, 2);
+//If we call this function with the standard function call syntax playVideo(); , 'this' would instead
+//reference the 'Global'/Window Object.
+
+//.apply method
+// Same results ass .call
+//The difference is only about passing arguments.
+//The . apply method requires that you pass any additional arguments as an array.
+
+/* (method) Function.apply(this: Function, thisArg: any, argArray?: any): any
+Calls the function, substituting the specified object for the this value of the function, and the specified array for the arguments of the function.
+
+@param thisArg — The object to be used as the this object.
+
+@param argArray — A set of arguments to be passed to the function.*/
+playVideo.apply({ name: 'Mike' }, [1, 2]);
+
+//.bind
+//.bind does not call our local 'Video' function, instead it sets 'this' to point to the object that 
+//we pass in as an argument permanantly and returns a completely new function.
+
+/*(method) Function.bind(this: Function, thisArg: any, ...argArray: any[]): any
+For a given function, creates a bound function that has the same body as the original function. The this object of the bound function is associated with the specified object, and has the specified initial parameters.
+
+@param thisArg — An object to which the this keyword can refer inside the new function.
+
+@param argArray — A list of arguments to be passed to the new function. */
+playVideo.bind({ name: 'Mike' })(); //Adding () allows us to call the function that we just created
+
+playVideo();
+
+//Example of using .bind to change the value of 'this' keyword:
+
+const video = {
+    title: 'a',
+    tags: ['a', 'b', 'c'],
+    showTags() {
+        this.tags.forEach(function(tag) { 
+            console.log(this.title, tag); 
+        }.bind(this)); //Call the '.bind' method on the 'forEach' 'Callback' function and then pass an object to be used as the value of this. 
+    } //We then pass in 'this' as our object to be used because we are in the 'showTags()' method which will reference our 'Video' Object.
+};
+
+video.showTags();
+
+//The 3RD, FINAL, and BEST way to change the value of 'This'
+//ARROW FUNCTIONS IN ES6!
+
+//Arrow Functions INHERIT the 'this' value.
+
+//Arrow Functions INHERIT 'this' from the containing function. In this case it would be our 'showTags()'
+//function, which references our 'video' object!
+
+//The value of 'this' changes each time a new function is created but when we use an 'Arrow Function'
+//it changes the value of 'this' to reference the parent function.
+
+
+const video = {
+    title: 'a',
+    tags: ['a', 'b', 'c'],
+    showTags() { //'this' references 'video' in 'showTags' because 'showTags' was created in the 'video' obj.
+        this.tags.forEach(tag => { //'this' now references the 'video' function instead of global because we added an 'Arrow Function'
+            console.log(this.title, tag); 
+        }); 
+    }  
+};
+
+video.showTags();
+
+
